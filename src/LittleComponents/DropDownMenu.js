@@ -25,8 +25,8 @@ function DropDownMenu ({item,children}){
   
    
         {selectedItem?.id === item?.id && (
-          <div className="absolute -right-6 z-50 min-w-max  rounded-lg bg-white dark:bg-gray-500 shadow-lg ring-1 ring-black ring-opacity-5">
-            <div className="p-2 space-y-2  divide-y">
+          <div className="absolute -right-6 z-50 min-w-max  rounded-lg bg-gray-100 dark:bg-gray-700 shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="p-2 space-y-1 text-gray-700 dark:text-gray-50 ">
                 {children}
   
               

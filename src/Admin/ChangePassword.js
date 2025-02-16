@@ -3,12 +3,23 @@ import ResetPasswordModal from "../LittleComponents/ResetPasswordModal"
 import Alert from "../LittleComponents/Alert"
 import { style , errorsMsgs} from "../Users"
 import ErrorMsg from "../LittleComponents/ErrorMsg"
+import { useTableContext } from "../Context"
+
 const names = ['password','newPassword','confirmPassword']
 
 export default function ChangePassword ({user}) {
-    const [selectedItem,setSelectedItem] = useState(user)
-    const [formData,setFormData] = useState({})
-     const [errors,setErrors]= useState({})
+   const { setActiveModal}  = useTableContext()
+   const {activeModal, setSelectedItem} = useTableContext();
+   console.log(activeModal);
+   
+   const handleReset = ()=>{
+      setSelectedItem(user)
+      setActiveModal('admin')
+   }
+    
+    
+   const [formData,setFormData] = useState({})
+   const [errors,setErrors]= useState({})
 
      const handleChange = (e)=>{
         const {name,value}= e.target
@@ -58,10 +69,12 @@ export default function ChangePassword ({user}) {
         
         
      }
-    const [activeModal,setActiveModal] = useState(null)
+   
     return (
         <>
         <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
+        <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-full px-3 pt-4 pb-3 basis-1/3">
+        <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">General Info</h3>
         <div className="flex my-2 w-full">
                      <label className={`px-3 py-2  rounded-l-md border ${style.label} ${errors.password ? style.errorBorder : style.border} basis-1/2`}>Password</label>
                      <input 
@@ -101,14 +114,16 @@ export default function ChangePassword ({user}) {
                      />
                   </div>
                   <ErrorMsg value={errors.confirmPassword}/>
-        <div className="flex items-center gap-3 justify-end mt-5">
-        <button type="button" onClick={()=>setActiveModal('admin')} className="px-3 py-2 duration-300  text-gray-700 hover:underline  dark:text-gray-50" >Reset it</button>
+                  </div>
+        <div className="flex items-center gap-2 justify-end mt-5">
+       {user.role.toLowerCase() === 'admin' && <button type="button" onClick={handleReset} className="px-3 py-2 duration-300  text-gray-700 hover:underline  dark:text-gray-50" >Reset it</button>}
         <button type="submit"  className="text-blue-800 bg-blue-200 hover:bg-blue-400 dark:text-gray-50 dark:bg-blue-700 dark:hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm    px-5 py-2.5 text-center  dark:disabled:bg-gray-600 dark:disabled:border-gray-700 dark:disabled:text-gray-800 disabled:cursor-not-allowed" > Change It</button>
         </div>
-       
+    
      </form>
      {
-        activeModal && <ResetPasswordModal  selectedItem={selectedItem} setSelectedItem={setSelectedItem} setActiveModal={setActiveModal} topic={'admin'}>
+        activeModal && 
+        <ResetPasswordModal topic={'admin'}>
         <Alert msg={'Be careful if you reset your password you will log out '}/>
         </ResetPasswordModal>
      }

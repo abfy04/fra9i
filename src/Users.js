@@ -58,7 +58,7 @@ export const students = [
       age: 16,
       gender: "Male",
       group: "Dev101",
-      totalAbsences: 5,
+      totalAbsence: 5,
       yesterdayAbsence: 2,
       isAbsentToday : 'No'
 
@@ -70,7 +70,7 @@ export const students = [
       age: 17,
       gender: "Female",
       group: "Dev101",
-      totalAbsences: 4,
+      totalAbsence: 4,
       yesterdayAbsence: 1,
       isAbsentToday : 'Yes'
 
@@ -83,7 +83,7 @@ export const students = [
       age: 16,
       gender: "Male",
       group: "GS101",
-      totalAbsences: 9,
+      totalAbsence: 9,
        yesterdayAbsence: 4,
     isAbsentToday : 'Yes'
 
@@ -96,7 +96,7 @@ export const students = [
       age: 15,
       gender: "Female",
       group: "Dev102",
-      totalAbsences: 12,
+      totalAbsence: 12,
        yesterdayAbsence: 1,
     isAbsentToday : 'No'
 
@@ -109,7 +109,7 @@ export const students = [
       age: 17,
       gender: "Male",
       group: "DEVOWFS201",
-      totalAbsences: 7,
+      totalAbsence: 7,
        yesterdayAbsence: 4,
     isAbsentToday : 'No'
  
@@ -122,7 +122,7 @@ export const students = [
       age: 16,
       gender: "Female",
       group: "Dev102",
-      totalAbsences: 6,
+      totalAbsence: 6,
        yesterdayAbsence: 2,
     isAbsentToday : 'Yes'
      
@@ -135,7 +135,7 @@ export const students = [
       age: 16,
       gender: "Male",
       group: "GS201",
-      totalAbsences: 10,
+      totalAbsence: 10,
        yesterdayAbsence: 1,
     isAbsentToday : 'Yes'
    
@@ -143,9 +143,9 @@ export const students = [
   ];
 
 export const filieres = [
-    {id:1,libel:'Developement Digital',niveau : 'Teachnicien Specialise',numberGroup: 3, totalAbsence : 2,groups:['DEV101','DEVOWFS201']},
-    {id:2,libel:'GS',numberGroup: 3,niveau : 'Teachnicien ', totalAbsence : 10,groups:['GS101','GS102','GS103']},
-    {id:3,libel:'GC',numberGroup: 3,niveau : 'Teachnicien Specialise', totalAbsence : 6,groups:['GC101','GC201','Batiment101']},
+    {id:1,libel:'Developement Digital',niveau : 'Technicien Specialise',numberGroup: 3, totalAbsence : 2,groups:['DEV101','DEVOWFS201']},
+    {id:2,libel:'GS',numberGroup: 3,niveau : 'Technicien ', totalAbsence : 10,groups:['GS101','GS102','GS103']},
+    {id:3,libel:'GC',numberGroup: 3,niveau : 'Technicien Specialise', totalAbsence : 6,groups:['GC101','GC201','Batiment101']},
     {id:4,libel:'ID',numberGroup: 3,niveau : 'Qualification', totalAbsence : 1,groups:['ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201','ID101','ID201']},
     {id:5,libel:'AI',numberGroup: 3,niveau : 'Specialisation', totalAbsence : 20,groups:['AI101','AI201']},
     
@@ -215,16 +215,16 @@ export const groups = [
 
   
 export  const studentAbsenceRecords = [
-    { date: "2025-01-21", status: "Absent", justified : true},
-    { date: "2025-01-20", status: "Absent", justified : false },
-    { date: "2025-01-18", status: "Late",   justified : true},
-    { date: "2025-01-15", status: "Absent", justified : false},
-    { date: "2025-01-10", status: "Late",   justified : true},
-    { date: "2025-01-08", status: "Absent", justified : false},
-    { date: "2025-01-05", status: "Absent", justified : false},
-    { date: "2024-12-28", status: "Late",   justified : true },
-    { date: "2024-12-22", status: "Absent", justified : false},
-    { date: "2024-12-18", status: "Absent", justified : true},
+    { date: "2025-01-21", status: "Absent", justified : 'Yes'},
+    { date: "2025-01-20", status: "Absent", justified : 'No' },
+    { date: "2025-01-18", status: "Late",   justified : 'Yes'},
+    { date: "2025-01-15", status: "Absent", justified : 'No'},
+    { date: "2025-01-10", status: "Late",   justified : 'Yes'},
+    { date: "2025-01-08", status: "Absent", justified : 'No'},
+    { date: "2025-01-05", status: "Absent", justified : 'No'},
+    { date: "2024-12-28", status: "Late",   justified : 'Yes' },
+    { date: "2024-12-22", status: "Absent", justified : 'No'},
+    { date: "2024-12-18", status: "Absent", justified : 'Yes'},
   ];
 
  export const errorsMsgs = {
@@ -243,6 +243,7 @@ export  const studentAbsenceRecords = [
     group : 'The group field cannot be empty. Please enter a value.',
     file : 'The file field cannot be empty. Please enter a value.',
     year : 'The year field cannot be empty. Please enter a value.',
+    email : 'The email field cannot be empty. Please enter a value.',
   }
 
 export  const style ={
@@ -255,3 +256,13 @@ export  const style ={
     focusInput : 'focus:border-purple-300 dark:focus:border-purple-500 ',
    
   }
+
+
+
+
+
+
+
+
+
+  

@@ -7,16 +7,9 @@ import Title from "../LittleComponents/Title";
 import { Sconfig } from "../Configurations";
 import { TableProvider } from "../Context";
 
-const cols = [
-  {colName : 'CEF',accessor : 'cef',sortable : true},
-  {colName : 'Full Name',accessor : 'name',sortable : true},
-  {colName : 'Age',accessor : 'age',sortable : true},
-  {colName:'Gender',accessor:'gender',sortable : true},
- { colName : 'Group',accessor : 'group',sortable : true},
- { colName : 'Total Absences',accessor : 'totalAbsences',sortable : true},
- 
- 
-]
+
+
+
 export default function Teachers(){
   
 
@@ -26,9 +19,9 @@ export default function Teachers(){
 
   return (
       <>
-      <Title dataset={students} title={'student'} link={'/addStudent'}/>
+      <Title  title={'student'} link={'/addStudent'} />
       <TableProvider>
-              <Table columns={cols} dataset={students} config={Sconfig} />
+              <Table  dataset={students} config={Sconfig} />
 
       </TableProvider>
       </>

@@ -78,98 +78,115 @@ export default function EditStudent(){
         
       
           <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
-           
-           {/* cef input */}
-           <div className="flex my-3 mb-0 w-full">
-                       <label className={`px-3 py-2  rounded-l-md border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Cef</label>
-                       <input 
-                          type="text" 
-                          name="cef" 
-                          defaultValue={formData.cef} 
-                          className={`rounded-r-md px-3  border  py-2  outline-none placeholder:text-sm ${style.input}    ${errors.cef ? style.errorBorder :style.border} ${style.focusInput} `} 
-                          placeholder="Enter student's cef" 
-                          onChange={({target})=>handleChange('cef',target.value)}
-                          onFocus={()=>InFocus('cef')}
-
-                          />
-                  </div>
-                  <ErrorMsg value={errors.cef}/>
-              {/* full name input */}
-           <div className="flex my-3 mb-0 w-full">
-                       <label className={`px-3 py-2  rounded-l-md border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Full Name</label>
-                       <input 
-                          type="text" 
-                          name="name" 
-                          defaultValue={formData.name} 
-                          className={`rounded-r-md px-3  border  py-2  outline-none placeholder:text-sm ${style.input}    ${errors.name ? style.errorBorder :style.border} ${style.focusInput} `} 
-                          placeholder="Enter student's name" 
-                          onChange={({target})=>handleChange('name',target.value)}
-                          onFocus={()=>InFocus('name')}
-
-                          />
-                  </div>
-                  <ErrorMsg value={errors.name}/>
-             {/* age input */}
-           <div className="flex my-3 mb-0 w-full">
-                       <label className={`px-3 py-2  rounded-l-md border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Age</label>
-                       <input 
-                          type="text" 
-                          name="age" 
-                          defaultValue={formData.age} 
-                          className={`rounded-r-md px-3  border py-2  outline-none placeholder:text-sm ${style.input}    ${errors.age ? style.errorBorder :style.border} ${style.focusInput} `} 
-                          placeholder="Enter student's age" 
-                          onChange={({target})=>handleChange('age',target.value)}
-                          onFocus={()=>InFocus('age')}
-
-                          />
-                  </div>
-                  <ErrorMsg value={errors.age}/>
-
-            {/* gender input */}
-            <div class="flex my-3 w-full">
-                     <label  className={`px-3 py-2  rounded-l-md border ${style.label}  ${style.border} basis-1/2 max-w-[178px] `}>Gender </label>
-                     <div className={`flex gap-4 border ${style.input}  ${ style.border} rounded-r-md px-3 border border-l-0 py-2  flex-1`}>
-                        <div className="flex items-center  gap-1">
-                           
-                           <input 
-                              type="radio" 
-                              name="gender" 
-                              value={'Male'} 
-                              defaultChecked={formData.gender === 'Male'}   
-                              className="    accent-purple-400 cursor-pointer"  
-                              onChange={({target})=>handleChange('gender',target.value)}
-                           />
-                           <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Male </label>
-                        </div>
-                        <div class="flex items-center  gap-1">
-                           
-                           <input 
-                              type="radio" 
-                              name="gender" 
-                              value={'Female'} 
-                              defaultChecked={formData.gender === 'Female'}   
-                              className="  accent-purple-400 cursor-pointer" 
-                              onChange={({target})=>handleChange('gender',target.value)}  
-                           />
-                           <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Female </label>
-                        </div>
-                        
-                  
-                     </div>
+                       {/* personal info */}
+          <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-full px-3 pt-4 pb-3 basis-1/3">
+               <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Personal Info</h3>
          
-                  </div>
-           
-
-            <div class="flex my-3 mb-0  w-full">
-                    <label  className={`px-3 py-2  rounded-l-md border border-r-0 ${style.label}  ${style.border} basis-1/2 max-w-[178px]`}>Group </label>
-                    <Select items={groups} config={config}/>
+                           {/* cef input */}
+                           <div className="flex my-3 mb-0 w-full">
+                                <label className={`p-3 text-sm font-medium  rounded-l-md border border-r-0 basis-1/2 ${style.label}  ${style.border} `}>Cef</label>
+                                <input 
+                                   type="text" 
+                                   name="cef" 
+                                   value={formData.cef || ''} 
+                                   className={`rounded-r-md px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${style.input}    ${errors.cef ? style.errorBorder :style.border} ${style.focusInput} `} 
+                                   placeholder="Enter student's cef" 
+                                   onChange={({target})=>handleChange('cef',target.value)} 
+                                   onFocus={()=>InFocus('cef')}
+         
+                               />
+                           </div>
+                           <ErrorMsg value={errors.cef}/>
+         
+                           {/* full name input */}
+                           <div className="flex my-3 mb-0  w-full">
+                                <label className={`p-3 text-sm font-medium   rounded-l-md border border-r-0  basis-1/2 ${style.label}  ${style.border}`}>Full Name</label>
+                                <input 
+                                   type="text" 
+                                   name="name" 
+                                   value={formData.name || ''} 
+                                   className={`rounded-r-md px-3 border text-sm font-medium  py-2  outline-none placeholder:text-sm ${style.input}  ${errors.name ? style.errorBorder :style.border} ${style.focusInput}`} 
+                                   placeholder="Enter student's full name" 
+                                   onChange={({target})=>handleChange('name',target.value)} 
+                                   onFocus={()=>InFocus('name')}
+         
+                                 />
+                           </div>
+                           <ErrorMsg value={errors.name}/>
+         
+                           {/* age input  */}
+                           <div className="flex my-3 mb-0  w-full">
+                                <label className={`p-3 text-sm font-medium   rounded-l-md border border-r-0 basis-1/2 ${style.label}  ${style.border} `}>Age</label>
+                                <input 
+                                   type="number" 
+                                   name="age" 
+                                   value={formData.age || ''} 
+                                   className={`rounded-r-md px-3 border text-sm font-medium   py-2  outline-none placeholder:text-sm ${style.input} ${errors.age ? style.errorBorder :style.border}  ${style.focusInput}`} 
+                                   placeholder="Enter student's Age" 
+                                   onChange={({target})=>handleChange('age',target.value)} 
+                                   onFocus={()=>InFocus('age')}
+                                   onKeyDown={(e) => {
+                                     if (e.key === "e" || e.key === "E" || e.key === ".") {
+                                       e.preventDefault();
+                                     }
+                                   }}
+         
+                                 />
+                           </div>
+                           <ErrorMsg value={errors.age}/>
                       
-                    </div>
-                    <ErrorMsg value={errors.group}/>
-
-                    {/*submit button */}
-            <button type="submit" className="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Edit Student</button>
-        </form>
+         
+                           {/* gender input */}
+                           <div className="flex my-3 mb-0  w-full">
+                             <label  className={`p-3  text-sm font-medium  rounded-l-md border border-r-0 basis-1/2 max-w-[158px]  ${style.label}  ${style.border} `}>Gender </label>
+                             <div className={`flex gap-4  ${style.input} ${style.border}  rounded-r-md px-3 border  py-2  flex-1 `}>
+                                 <div className="flex items-center  gap-1">
+                                     
+                                     <input 
+                                       type="radio" 
+                                       name="gender" 
+                                       value={'Male'} 
+                                       checked={formData.gender === 'Male'} 
+                                       className="    accent-purple-400 cursor-pointer"  
+                                       onChange={()=>handleChange('gender','Male')} 
+                                      />
+                                     <label  className={` mb-1 text-sm font-medium  text-gray-700 dark:text-gray-50`}>Male </label>
+                                 </div>
+                                 <div className="flex items-center  gap-1">
+                                     
+                                     <input 
+                                       type="radio" 
+                                       name="gender" 
+                                       value={'Female'}  
+                                       checked={formData.gender === 'Female'} 
+                                       className="  accent-purple-400 cursor-pointer"  
+                                       onChange={()=>handleChange('gender','Female')} 
+         
+                                     />
+                                     <label  className={` mb-1 text-sm font-medium text-gray-700 dark:text-gray-50 `}>Female </label>
+                                 </div>
+                                 
+                           
+                             </div>
+                     
+                           </div>
+                        
+                           
+         
+                           {/* group select */}
+                           <div className="flex my-3 mb-0  w-full">
+                             <label  className={`p-3 text-sm font-medium   rounded-l-md border border-r-0 basis-1/2 max-w-[158px] ${style.label}  ${style.border} `}>Group </label>
+                             <Select 
+                               config={{...config,defaultValue : formData.group || ''}}
+                               items={groups} 
+                              
+                             /> 
+                             </div>
+                             <ErrorMsg value={errors.group}/>
+         </div>
+                           {/* Submit Button */}
+                             <button type="submit" className="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-3">Edit Student</button>
+                         </form>
 
         
         

@@ -1,13 +1,17 @@
 
-import { useParams } from "react-router-dom";
+import {  useNavigate,useParams } from "react-router-dom";
 import { User } from "lucide-react";
-import {users} from '../Users'
 import { useState } from "react";
 import ErrorMsg from "../LittleComponents/ErrorMsg";
-import { style,errorsMsgs } from "../Users";
-const names = ['matricule','name','age']
+import { users,style,errorsMsgs } from "../Users";
+
+const names = ['matricule','name','age',]
 export default function EditUser(){
     const {id} = useParams()
+    const nv =  useNavigate()
+    
+    
+    
     const user = users.find (user => user.matricule === id)
      const [formData,setFormData] = useState(user)
          const [errors,setErrors]= useState({})
@@ -41,20 +45,22 @@ export default function EditUser(){
          const handleSubmit = (e)=>{
             e.preventDefault()
             const validation = handleError()
-        
             
-            
-            if (Object.keys(validation)){
+            if (Object.keys(validation).length){
                 setErrors(validation)
                 return false
             }
+           
+            nv( -1 , {state:{action : 'seccuss'}})
+  
+         }
             
             
            
             
             
             
-         }
+         
     return (
         <>
         <div className="mb-10 mt-7 flex items-center gap-3  text-gray-700  dark:text-gray-50">
@@ -63,87 +69,128 @@ export default function EditUser(){
         </div>
           
          
+        <form className=" mx-auto " onSubmit={handleSubmit}>
         
-
-        <form class="max-w-sm mx-auto " onSubmit={handleSubmit}>
-                  {/* matricule input */}
-                  <div className="flex my-3 mb-0 w-full">
-                       <label className={`px-3 py-2  rounded-l-md border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Matricule</label>
-                       <input 
-                          type="text" 
-                          name="matricule" 
-                          defaultValue={formData.matricule} 
-                          className={`rounded-r-md px-3  border  py-2  outline-none placeholder:text-sm ${style.input}    ${errors.matricule ? style.errorBorder :style.border} ${style.focusInput} `} 
-                          placeholder="Enter user's matricule" 
-                          onChange={handleChange} 
-                          onFocus={()=>InFocus('matricule')}
-
-                          />
-                  </div>
-                  <ErrorMsg value={errors.matricule}/>
-
-                  <div className="flex my-3 mb-0  w-full">
-                       <label className={`px-3 py-2  rounded-l-md border border-r-0 ${style.label}  ${errors.name ? style.errorBorder :style.border} basis-1/2`}>Full Name</label>
-                       <input 
-                            type="text" 
-                            name="name" 
-                            defaultValue={formData.name} 
-                            className={`rounded-r-md px-3 border border-l-0 py-2  outline-none placeholder:text-sm ${style.input}  ${errors.name ? style.errorBorder :style.border} ${style.focusInput}`} 
-                            placeholder="Enter student's full name" 
-                            onChange={handleChange} 
-                            onFocus={()=>InFocus('name')}
-                        />
-                  </div>
-                  <ErrorMsg value={errors.name}/>
-
-                  <div className="flex my-3 mb-0  w-full">
-                       <label className={`px-3 py-2  rounded-l-md border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Age</label>
-                       <input 
-                           type="number" 
-                           name="age" 
-                           defaultValue={formData.age} 
-                           className={`rounded-r-md px-3 border py-2  outline-none placeholder:text-sm ${style.input} ${errors.age ? style.errorBorder :style.border}  ${style.focusInput}`} 
-                           placeholder="Enter student's Age" 
-                           onChange={handleChange} 
-                           onFocus={()=>InFocus('age')}
-
-                        />
-                  </div>
-                  <ErrorMsg value={errors.age}/>
-          <div class="flex my-3 mb-0  w-full">
-                    <label for="fullName" class={`px-3 py-2  rounded-l-md border ${style.label}  ${style.border} basis-1/2 max-w-[178px] `}>Gender </label>
-                    <div className={`flex gap-4 border ${style.input} ${style.border}  rounded-r-md px-3 border border-l-0 py-2  flex-1`}>
-                        <div class="flex items-center  gap-1">
+         <div className="flex gap-10 justify-center ">
+         {/* personal info */}
+         <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-full px-3 pt-2 pb-3 basis-1/3">
+                            <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Personal Info</h3>
+                          
+                             <div className="flex mt-5 mb-0  w-full">
+                               <label className={`p-3  rounded-l-md text-sm font-medium border border-r-0 ${style.label}  ${style.border} basis-1/2 `}>Full Name</label>
+                               <input 
+                                   type="text" 
+                                   name="name"  
+                                   className={`rounded-r-md px-3 border py-2 text-sm font-medium   outline-none placeholder:text-xs ${style.input}  ${errors.name ? style.errorBorder :style.border} ${style.focusInput}`} 
+                                   placeholder="Enter student's full name" 
+                                   onChange={handleChange} 
+                                   onFocus={()=>InFocus('name')}
+                                   value={formData.name || ''}
+        
+                                />
+                          </div>
+                          <ErrorMsg value={errors.name}/>
+                          <div className="flex mt-5 mb-0  w-full">
+                               <label className={`p-3  rounded-l-md text-sm font-medium border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Age</label>
+                               <input 
+                                  type="number" 
+                                  name="age" 
+                                  className={`rounded-r-md px-3 border  text-sm font-medium py-2  outline-none placeholder:text-xs ${style.input} ${errors.age ? style.errorBorder :style.border}  ${style.focusInput}`} 
+                                  placeholder="Enter user's Age" 
+                                  onChange={handleChange} 
+                                  onFocus={()=>InFocus('age')}
+                                  value={formData.age || ''}
+                                
+                                  />
+                          </div>
+                          <ErrorMsg value={errors.age}/>
+        
+                          <div className="flex mt-5 mb-0  w-full">
+                            <label className={`p-3 text-sm font-medium  rounded-l-md border ${style.label}  ${style.border} basis-1/2 max-w-[158px]`}>Gender </label>
+                            <div className={`flex gap-4 border ${style.input} ${style.border}  rounded-r-md px-3 border border-l-0 py-2  flex-1`}>
+                                <div className="flex items-center  gap-1">
+                                    
+                                    <input type="radio" name="gender" value={'Male'} checked={formData.gender === 'Male'}   className="    accent-purple-400 cursor-pointer"  onChange={handleChange} />
+                                    <label  className={` text-sm font-medium  text-gray-700 dark:text-gray-50`}>Male </label>
+                                </div>
+                                <div className="flex items-center  gap-1">
+                                    
+                                    <input type="radio" name="gender" value={'Female'} checked={formData.gender === 'Female'}   className="  accent-purple-400 cursor-pointer"  onChange={handleChange} />
+                                    <label  className={`  text-sm font-medium text-gray-700 dark:text-gray-50 `}>Female </label>
+                                </div>
+                                
+                          
+                            </div>
+                    
+                          </div>
                             
-                            <input type="radio" name="gender" value={'Male'} defaultChecked={formData.gender === 'Male'}    class="    accent-purple-400 cursor-pointer"  onChange={handleChange} />
-                            <label  class={` mb-1 text-sm font-medium  text-gray-700 dark:text-gray-50`}>Male </label>
-                        </div>
-                        <div class="flex items-center  gap-1">
-                            
-                            <input type="radio" name="gender" value={'Female'} defaultChecked={formData.gender === 'Female'}   class="  accent-purple-400 cursor-pointer"  onChange={handleChange} />
-                            <label  class={` mb-1 text-sm font-medium text-gray-700 dark:text-gray-50 `}>Female </label>
-                        </div>
-                        
-                  
-                    </div>
-            
+                    
           </div>
-          
-          <div class="flex my-3 w-full">
-            <label  class={`px-3 py-2  rounded-l-md border ${style.label}  ${style.border} basis-1/2 max-w-[178px]`}>Role </label>
-            <select name="role" defaultValue={formData.role}   class={`border outline-none ${style.input} ${style.border}  rounded-r-md px-3 border border-l-0 py-2  flex-1 ${style.focusInput} ${style.disabledInput} `} disabled>
-                    <option value={''}  disabled>Select user Role</option>
-                    <option value={'admin'}>Admin</option>
-                    <option value={'Absence Manager'}>Absence Manager</option>
-                    <option value={'teacher'}>Teacher</option>
-            </select>
-          </div>
-          
-
+        
+          {/* profesinal info */}
+        <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-40 px-3 py-3  pt-2 basis-1/3">
+                            <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Professional Info</h3>
+        
+                         <div className="flex mt-5 mb-0 w-full">
+                               <label className={`p-3 text-sm font-medium rounded-l-md border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Matricule</label>
+                               <input 
+                                   type="text" 
+                                   name="matricule" 
+                                   className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input}    ${errors.matricule ? style.errorBorder :style.border} ${style.focusInput} `} 
+                                   placeholder="Enter user's matricule" 
+                                   onChange={handleChange} 
+                                   onFocus={()=>InFocus('matricule')}
+                                   value={formData.matricule || ''}
+        
+                                />
+                          </div>
+                          <ErrorMsg value={errors.matricule}/>
+        
+                          <div className="flex mt-5 mb-0 w-full">
+                               <label className={`p-3  rounded-l-md text-sm font-medium border border-r-0 ${style.label}  ${style.border} basis-1/2`}>Professional Email</label>
+                               <input 
+                                   type="email" 
+                                   name="email" 
+                                   className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input}    ${errors.email ? style.errorBorder :style.border} ${style.focusInput} `} 
+                                   placeholder="Enter user's professional email" 
+                                   onChange={handleChange} 
+                                   onFocus={()=>InFocus('email')}
+                                   value={formData.email || ''}
+        
+                                />
+                          </div>
+                          <ErrorMsg value={errors.email}/>
+        
+                         
+        
+                          
+                          
+        
+                          <div className="flex mt-5 mb-0 w-full">
+                            <label  className={`p-3 text-sm font-medium  rounded-l-md border border-r-0 ${style.label} ${style.border}  basis-1/2 max-w-[158px]`}>Role </label>
+                            <input 
+                                   type="text" 
+                                   name="role" 
+                                   className={`rounded-r-md px-3 text-sm font-medium  border  py-2  outline-none placeholder:text-xs ${style.input} ${style.disabledInput}   ${style.border} ${style.focusInput} `} 
+                                   placeholder="Enter user's professional email" 
+                                   defaultValue={formData.role }
+                                   disabled
+        
+                                />
+                          </div>
+                         
+        
+                         
+        </div>
+        
+         </div>
          
-          <button type="submit" class="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-2 mt-3 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add User</button>
-        </form>
-
+                       
+        
+        
+        
+        <button type="submit" className="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-3 max-w-40 ml-[170px]">Edit User</button>
+         </form>
 
         </>
     )

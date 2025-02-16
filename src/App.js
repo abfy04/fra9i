@@ -3,7 +3,6 @@ import { Route,Routes } from "react-router-dom";
 //layout
 import SideBar from "./Dashboard/SideBar";
 import Header from "./Dashboard/Header";
-
 import Dashboard from "./Dashboard/Dashboard";
 
 
@@ -35,6 +34,8 @@ function App() {
   const [isOpen,setIsOpen] = useState(false);
   const [theme,setTheme] = useState(localStorage.getItem('theme') || 'light');
   localStorage.setItem('theme',theme)
+
+  
   
   
   return (

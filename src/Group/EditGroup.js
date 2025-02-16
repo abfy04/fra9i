@@ -58,14 +58,22 @@ export default function EditGroup(){
         
          
          
-         
       }
-      const config = {
+      const teacherConfig = {
          type : 'teacher',
          error: errors.teacher,
          onDelete : InFocus,
          onChange : handleChange,
-         defaultValue : teachers.matricule === group.mainTeacher
+         defaultValue : formData.teacher,
+         placeholder : 'select main teacher'
+        }
+        const filiereConfig = {
+         type : 'filiere',
+         error: errors.filiere,
+         onDelete : InFocus,
+         onChange : handleChange,
+         defaultValue : formData.filiere,
+         placeholder : 'select  filiere'
         }
     return (
         <>
@@ -77,94 +85,67 @@ export default function EditGroup(){
          
         
 
-            <form className="max-w-md mx-auto " onSubmit={handleSubmit}>
-               {/* matricule input */}
-               <div className="flex my-2 w-full">
-                                 <label className={`px-3 py-2  rounded-l-md border ${style.label} ${errors.libel ? style.errorBorder : style.border} basis-2/6`}>Group Libel</label>
-                                 <input 
-                                    type="text" 
-                                    name="libel" 
-                                    defaultValue={formData.libel} 
-                                    className={`rounded-r-md px-3 border border-l-0 py-2  disabled:cursor-not-allowed outline-none flex-1 ${style.input} ${errors.libel ? style.errorBorder : style.border} ${style.focusInput}`} 
-                                    placeholder="Enter your matricule" 
-                                    onChange={handleChange} 
-                                    onFocus={()=>InFocus('libel')}
-                                 />
-              </div>
-              <ErrorMsg value={errors.libel}/>
-                              {/* year input */}
-                <div class="flex my-3 w-full">
-                                 <label  className={`px-3 py-2  rounded-l-md border ${style.label} ${style.border}  basis-1/4 max-w-[178px] `}>Year </label>
-                                 <div className={`flex gap-4 border ${style.input} ${style.border}  rounded-r-md px-3 border border-l-0 py-2  flex-1`}>
-                                    <div className="flex items-center  gap-1">
-                                       
-                                       <input 
-                                          type="radio" 
-                                          name="year" 
-                                          value={'First Year'} 
-                                          defaultChecked = {String(formData.year).toLowerCase() === 'first year'}
-                                          className="    accent-purple-400 cursor-pointer"  
-                                          onChange={handleChange} 
-                                       />
-                                       <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Fist Year </label>
-                                    </div>
-                                    <div class="flex items-center  gap-1">
-                                       
-                                       <input 
-                                          type="radio" 
-                                          name="year" 
-                                          value={'Second Year'} 
-                                          defaultChecked = {String(formData.year).toLowerCase() === 'second year'}
-                                          className="  accent-purple-400 cursor-pointer" 
-                                          onChange={handleChange}  
-                                       />
-                                       <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Second Year </label>
-                                    </div>
-                                    <div class="flex items-center  gap-1">
-                                       
-                                       <input 
-                                          type="radio" 
-                                          name="year" 
-                                          value={'Third Year'} 
-                                          defaultChecked = {String(formData.year).toLowerCase() === 'third year'}
-                                          className="  accent-purple-400 cursor-pointer" 
-                                          onChange={handleChange}  
-                                       />
-                                       <label  className=" mb-1 text-sm font-medium text-gray-700 dark:text-gray-50">Third Year </label>
-                                    </div>
-                                    
-                              
-                                 </div>
-                     
-                </div>
-
-                {/* filiere input */}
-                              <div className="flex my-2 w-full">
-                                 <label className={`px-3 py-2  rounded-l-md border ${style.label} ${errors.filiere ? style.errorBorder : style.border} basis-1/2 max-w-[178px]`}>Filiere</label>
-                                 <select   
-                                    
-                                    class={`border border-l-0 text-sm rounded-r-md flex-1 py-2 px-3 outline-none ${style.input} ${errors.filiere ? style.errorBorder : style.border} ${style.focusInput} `}  
-                                    onChange={handleChange} 
-                                    onFocus={()=>InFocus('filiere')}
-                                    name="filiere"
-                                    defaultValue={formData.filiere}
-                                  >
-                                        <option value={''} selected disabled >Select filiere niveau</option>
-                                        {filieres.map(f=><option value={f.id} key={f.id}>{f.libel}</option>)}
-                                </select>
-                                 
-                              </div>
-              <ErrorMsg value={errors.filiere}/>
-                             
-              
-                              <div className="flex my-2 w-full">
-                                <label className={`px-3 py-2  rounded-l-md border ${style.label} ${errors.teachers ? style.errorBorder : style.border} basis-1/2 max-w-[178px]`}>Teachers</label>
-                                <Select items={teachers} />
-                              </div>
-              <ErrorMsg value={errors.teachers}/>
-                              
-              <button type="submit" class="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-3">Add Group</button>
-            </form>
+           <form className="max-w-sm mx-auto " onSubmit={handleSubmit}>
+           <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-full px-3 pt-4 pb-3 basis-1/3">
+           <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">General Info</h3>
+              {/* libel input */}
+              <div className="flex my-2 w-full">
+                                <label className={`p-3 text-sm font-medium  rounded-l-md border border-r-0 ${style.label} ${ style.border} basis-1/2  `}>Group Libel</label>
+                                <input 
+                                   type="text" 
+                                   name="libel" 
+                                   className={`rounded-r-md px-3  py-2  border disabled:cursor-not-allowed outline-none flex-1 ${style.input} ${errors.libel ? style.errorBorder : style.border} ${style.focusInput}`} 
+                                   placeholder="Enter group libel" 
+                                   value={formData.libel || ''}
+                                   onChange={({target})=>handleChange('libel',target.value)} 
+                                   onFocus={()=>InFocus('libel')}
+                                />
+             </div>
+             <ErrorMsg value={errors.libel}/>
+               {/* year input */}
+               <div className="flex my-3 w-full">
+                                <label  className={`p-3  text-sm font-medium   rounded-l-md border border-r-0 ${style.label} ${style.border}  basis-1/2 max-w-[152px] `}>Year </label>
+                                <select   
+                                  
+                                   className={`border text-sm font-medium rounded-r-md flex-1 py-2 px-3 outline-none ${style.input} ${errors.year ? style.errorBorder : style.border} ${style.focusInput} `}  
+                                   onChange={({target})=>handleChange('year',target.value)}  
+                                   onFocus={()=>InFocus('year')}
+                                   value={formData.year}
+                               
+                                   name="year"
+                                 >
+                                       <option value={''}  disabled >Select group year</option>
+                                       <option value={'first year'}>first year</option>
+                                       <option value={'second year'}> second year</option>
+                                       <option value={'third year'}>third year</option>
+                                     
+                               </select>
+                                
+                             </div>
+                             <ErrorMsg value={errors.year}/>
+               {/* filiere input */}
+                             <div className="flex my-3 w-full">
+                                <label className={`p-3  text-sm font-medium  rounded-l-md border border-r-0 ${style.label} ${ style.border} basis-1/2 max-w-[152px]`}>Filiere</label>
+                                <Select 
+                                  items={filieres}
+                                  config={{...filiereConfig,defaultValue : formData.filiere || ''}}
+                                />
+                                
+                             </div>
+                             <ErrorMsg value={errors.filiere}/>
+              {/* main teacher */}
+                             <div className="flex my-3 w-full">
+                               <label className={`p-3  text-sm font-medium  rounded-l-md border border-r-0 ${style.label} ${ style.border} basis-1/2 max-w-[152px]`}>Main Teacher</label>
+                               <Select 
+                               items={teachers} 
+                               config={{...teacherConfig,defaultValue : formData.teacher || ''}}
+           
+                               />
+                             </div>
+                             <ErrorMsg value={errors.teacher}/>
+           </div>
+             <button type="submit" className="text-gray-50 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-3">Add Group</button>
+           </form>
 
 
         </>

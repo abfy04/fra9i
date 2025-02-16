@@ -3,12 +3,13 @@ import { PenBox, Trash2, UserX2,Users } from "lucide-react"
 import { groups,students } from "../Users"
 
 import Table from "../LittleComponents/Table"
-
+import TimeFilter from "../LittleComponents/TimeFilter"
 
 import HChart from "../Charts/HChart"
 import Infos from "../LittleComponents/Infos"
 import ProfileCards from "../LittleComponents/ProfileCards"
 import { TableProvider } from "../Context"
+import { Sconfig } from "../Configurations"
 
 
 const  cardsData = [
@@ -77,58 +78,45 @@ const dataa2= [
 const totalAbsence = dataa2.reduce((acc,val)=> acc + val.absence , 0)
 const totalRetard = dataa2.reduce((acc,val)=> acc + val.retard , 0)
 export default function ProfileGroup(){
-    const cols = [
-        {colName : 'CEF',accessor : 'cef',sortable : true},
-        {colName : 'Full Name',accessor : 'name',sortable : true},
-        {colName : 'Age',accessor : 'age',sortable : true},
-        {colName:'Gender',accessor:'gender',sortable : true},
-       { colName : 'Group',accessor : 'group',sortable : true},
-       { colName : 'Total Absences',accessor : 'totalAbsences',sortable : true},
-       
-       
-      ]
-      const config = {
-        name : 'student',
-        searchBy : ['cef','name','group','age'],
-        resetPassword : false,
-        dropDown : true,
-        profile : true,
-        links:{
-          profile : 'studentProfile',
-          edit:'editStudent'
-        }
-      }
+    const {id} =useParams()
+    const group = groups.find(student => student.id === Number(id))
+    const newConfig = {
+        ...Sconfig,
+        name: `${group.libel}_student`,
+        columns : Sconfig.columns.filter(column => column.colName !== 'Group'),
+        filterBy: Sconfig.filterBy.filter(filter=> filter !== 'group')
+    }
 
 
  
   
 
 
-    const {id} =useParams()
-    const group = groups.find(student => student.id === Number(id))
+   
     const infos = [
         {colName:'Libel',accessor : 'libel'},
         {colName:'Filiere',accessor : 'filiere'},
         {colName:'Year',accessor : 'year'},
 
     ]
+   
 
     
     return (
         <div className=" select-none">
-            <div>
+            <div className="flex items-center justify-between">
                 <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { group.libel} profile</h1>
-               
+                <div className="flex items-center justify-center gap-3 ">
+                        <Link to={`/editGroup/${group.id}`} className="text-blue-800 bg-blue-200 hover:bg-blue-400 dark:text-gray-50 dark:bg-blue-700 dark:hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center flex-1 flex  items-center justify-center gap-2"><PenBox size={20}/> Edit</Link>
+                        <button className="text-red-800 bg-red-200 hover:bg-red-400 dark:dark:text-gray-50 dark:bg-red-700 dark:hover:bg-red-800  focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-cente flex-1 flex  items-center justify-center gap-2" ><Trash2 size={20}/> Delete</button>
+                     </div>
                 
             </div>
             <div className=" flex min-w-full gap-5 mb-10">
             <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-40 px-3 py-2 pt-4 flex-1">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Info</h3>
                      <Infos info={infos} item={group}/>
-                     <div className="flex items-center justify-center gap-3 my-7">
-                        <Link to={`/editGroup/${group.id}`} className="text-blue-800 bg-blue-200 hover:bg-blue-400 dark:text-gray-50 dark:bg-blue-700 dark:hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center flex-1 flex  items-center justify-center gap-2"><PenBox size={20}/> Edit</Link>
-                        <button className="text-red-800 bg-red-200 hover:bg-red-400 dark:dark:text-gray-50 dark:bg-red-700 dark:hover:bg-red-800  focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-cente flex-1 flex  items-center justify-center gap-2" ><Trash2 size={20}/> Delete</button>
-                     </div>
+                     
             </div>
 
             <div className="  grid grid-cols-2  gap-6  ">
@@ -154,13 +142,7 @@ export default function ProfileGroup(){
 
                 <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-56 px-3 py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Absence Info</h3>
-                    <select  className="absolute right-2 top-2 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/3 min-w-40 p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" >
-                        <option value={'All time'}>All time</option>
-                        <option value={'Today'}>Today</option>
-                        <option value={'Yesterday'}>Yesterday</option>
-                        <option value={'Last week'}>Last Week</option>
-                        <option value={'Last month'}>Last Month</option>
-                    </select>
+                    <TimeFilter />
                     <HChart data={dataa} />
                   
                           
@@ -174,13 +156,7 @@ export default function ProfileGroup(){
                 <div className="relative border border-gray-300 dark:border-gray-500 rounded-md   min-h-72 px-5  py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-between w-full">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Absence by gender</h3>
                     
-                    <select  className="absolute right-2 top-2 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/3 min-w-40 p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" >
-                        <option value={'All time'}>All time</option>
-                        <option value={'Today'}>Today</option>
-                        <option value={'Yesterday'}>Yesterday</option>
-                        <option value={'Last week'}>Last Week</option>
-                        <option value={'Last month'}>Last Month</option>
-                    </select>
+                    <TimeFilter />
                     <div className="flex flex-col gap-5  ">
                         <div className="flex items-center gap-2">
                             <span className="size-5 bg-red-500 dark:bg-red-200 rounded-md "></span>
@@ -231,8 +207,9 @@ export default function ProfileGroup(){
                
 
             </div>
+            <h2 className="text-gray-700 dark:text-gray-50 my-3  font-semibold"> Students List</h2>
             <TableProvider>
-                            <Table columns={cols} dataset={students} config={config}/>
+                            <Table  dataset={students} config={newConfig} />
 
             </TableProvider>
         </div>

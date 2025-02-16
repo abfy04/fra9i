@@ -85,7 +85,7 @@ export default function DonutCHart({
         {
              data.map (
               d => 
-                <span className={` px-3 font-semibold text-sm  py-2 rounded-md flex  items-center gap-2   ${css[d.type].style}`}>
+                <span key={d.type} className={` px-3 font-semibold text-sm  py-2 rounded-md flex  items-center gap-2   ${css[d.type].style}`}>
                      <span >{d.nbr}</span>
 
                      <span >{d.type}</span>

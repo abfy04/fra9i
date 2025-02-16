@@ -1,4 +1,4 @@
-import { Users,School,UserX } from "lucide-react"
+import { Users,School,UserX, PencilRuler, GraduationCap } from "lucide-react"
 import DonutCHart from "../Charts/DonutChart"
 
 import { Link } from "react-router-dom"
@@ -28,14 +28,14 @@ function StartCards(){
     {
       title:'Total Teachers',
       nbr: 218,
-      icon : <Users size={20}/>,
+      icon : <PencilRuler size={20}/>,
       style :'bg-slate-200 hover:bg-slate-300 text-slate-700 ',
       link:'/teachers'
     },
     {
       title:'Total Students',
       nbr: 2000,
-      icon : <Users size={20}/>,
+      icon : <GraduationCap size={20}/>,
       style :'bg-sky-200 hover:bg-sky-300 text-sky-700 ',
       link:'/students'
     },

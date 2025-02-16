@@ -11,6 +11,8 @@ import LineBarChart from "../Charts/LineBarCHart"
 import HChart from "../Charts/HChart"
 import Infos from "../LittleComponents/Infos"
 import ProfileCards from "../LittleComponents/ProfileCards"
+import { Gconfig } from "../Configurations"
+import TimeFilter from "../LittleComponents/TimeFilter"
 
 
 
@@ -136,36 +138,26 @@ const groupsAbsence= [
 
 
 export default function ProfileFiliere(){
-    const cols = [
-        {colName:'Libel',accessor : 'libel',sortable : true},
-        {colName:'Year',accessor : 'year',sortable : true},
-        {colName:'Number students',accessor : 'numberStudents',sortable : true},
-        {colName:'Number Absence',accessor : 'nbrAbsence',sortable : true},
-        {colName:'Today Absence',accessor : 'todayAbsence',sortable : true},
-        {colName:'Yesterday Absence',accessor : 'YesterdayAbsence',sortable : true},
-      ]
-      const config = {
-        name : 'group',
-        searchBy : ['libel','year'],
-        resetPassword : false,
-        dropDown : true,
-        profile : true,
-        links:{
-          profile : 'groupProfile',
-          edit:'editGroup'
-        }
-      }
-      
-
+    
+    const {id} =useParams()
+    const filiere = filieres.find(student => student.id === Number(id))
+    const newConfig = {
+        ...Gconfig,
+        name : `${filiere.libel}_group`,
+        columns : Gconfig.columns.filter(column => column.colName !== 'Filiere'),
+        filterBy : Gconfig.filterBy.filter(filter => filter !== 'filiere')
+    }
+    
+    
  
   
 
 
-    const {id} =useParams()
-    const filiere = filieres.find(student => student.id === Number(id))
+   
 
     const infos = [
         {colName:'Libel',accessor : 'libel'},
+        {colName:'Niveau',accessor : 'niveau'},
     
 
       ]
@@ -173,20 +165,21 @@ export default function ProfileFiliere(){
     
     return (
         <div className=" select-none">
-            <div>
-                <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { filiere.libel} profile</h1>
-               
-                
+            <div className="flex items-center justify-between">
+            <h1 className="text-2xl text-gray-700 dark:text-gray-50 font-bold mb-10 mt-7">Welcome in { filiere.libel} profile</h1>
+            <div className="flex items-center justify-center gap-3 ">
+                        <Link to={`/editFiliere/${filiere?.id}`} className="text-blue-800 bg-blue-200 hover:bg-blue-400 dark:text-gray-50 dark:bg-blue-700 dark:hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center flex-1 flex  items-center justify-center gap-2"><PenBox size={20}/> Edit</Link>
+                        <button className="text-red-800 bg-red-200 hover:bg-red-400 dark:dark:text-gray-50 dark:bg-red-700 dark:hover:bg-red-800  focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-cente flex-1 flex  items-center justify-center gap-2" ><Trash2 size={20}/> Delete</button>
             </div>
+            </div>
+           
+            
             <div className=" flex min-w-full  gap-5 mb-10">
             <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-56 px-3 py-2 pt-10 flex-1">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Info</h3>
                      <Infos info={infos} item={filiere}/>
 
-                     <div className="flex items-center justify-center gap-3 my-7">
-                        <Link to={`/editFiliere/${filiere?.id}`} className="text-blue-800 bg-blue-200 hover:bg-blue-400 dark:text-gray-50 dark:bg-blue-700 dark:hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center flex-1 flex  items-center justify-center gap-2"><PenBox size={20}/> Edit</Link>
-                        <button className="text-red-800 bg-red-200 hover:bg-red-400 dark:dark:text-gray-50 dark:bg-red-700 dark:hover:bg-red-800  focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-cente flex-1 flex  items-center justify-center gap-2" ><Trash2 size={20}/> Delete</button>
-                     </div>
+                     
             </div>
 
             <div className="  grid grid-cols-2  gap-6  ">
@@ -211,13 +204,7 @@ export default function ProfileFiliere(){
 
             <div className="relative border border-gray-300 dark:border-gray-500 rounded-md  min-h-56 px-3 py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Absence Info</h3>
-                    <select  class="absolute right-2 top-2 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/3 min-w-40 p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" >
-                        <option value={'All time'}>All time</option>
-                        <option value={'Today'}>Today</option>
-                        <option value={'Yesterday'}>Yesterday</option>
-                        <option value={'Last week'}>Last Week</option>
-                        <option value={'Last month'}>Last Month</option>
-                    </select>
+                    <TimeFilter />
                     <HChart data={dataa}/>
                   
                           
@@ -230,13 +217,7 @@ export default function ProfileFiliere(){
 
                 <div className="relative border border-gray-300 dark:border-gray-500 rounded-md   min-h-72 px-5  py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-center w-full">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">Group Absence by Year</h3>
-                    <select  class="absolute right-2 top-2 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/3 min-w-40 p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" >
-                        <option value={'All time'}>All time</option>
-                        <option value={'Today'}>Today</option>
-                        <option value={'Yesterday'}>Yesterday</option>
-                        <option value={'Last week'}>Last Week</option>
-                        <option value={'Last month'}>Last Month</option>
-                    </select>
+                    <TimeFilter />
                     <DonutCHart css={style} data={dataa2}/>
                 </div>
                 
@@ -245,13 +226,7 @@ export default function ProfileFiliere(){
             </div>
             <div className="relative border border-gray-300 dark:border-gray-500 rounded-md   min-h-56 px-5  py-auto pt-4 flex-1 bg-gray-50 dark:bg-gray-900 flex items-center justify-center w-full my-8">
                     <h3 className="absolute text-gray-700 dark:text-gray-50 px-2 py-1 border border-gray-300 dark:border-gray-500 z-30 -top-4 bg-gray-50 dark:bg-gray-800 left-4 rounded-md">All Groups Absence statics</h3>
-                    <select  class="absolute right-2 top-2 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg  focus:border-purple-300 block w-1/4 min-w-40 p-2 outline-none dark:bg-gray-800 dark:border-gray-500 dark:text-gray-50  dark:focus:border-purple-500" >
-                        <option value={'All time'}>All time</option>
-                        <option value={'Today'}>Today</option>
-                        <option value={'Yesterday'}>Yesterday</option>
-                        <option value={'Last week'}>Last Week</option>
-                        <option value={'Last month'}>Last Month</option>
-                    </select>
+                    <TimeFilter />
                     <LineBarChart data={groupsAbsence}/>
             </div>
 
@@ -262,10 +237,11 @@ export default function ProfileFiliere(){
 
 
 
-             <h2 className="text-gray-700 dark:text-gray-50 mb-2  font-semibold">Groups List</h2>
-             <TableProvider >
-             <Table columns={cols} dataset={groups} config={config}/>
-             </TableProvider>
+             <h2 className="text-gray-700 dark:text-gray-50 mb-2  font-semibold"> Groups List</h2>
+                <TableProvider>
+                         <Table  dataset={groups} config={newConfig} />
+             
+                </TableProvider>
            
         </div>
     )

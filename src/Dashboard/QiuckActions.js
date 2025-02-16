@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { FileText,Plus, School, User } from "lucide-react"
+import { FileText,GraduationCap,Plus, School, User } from "lucide-react"
 import { useState } from "react"
 export default function QuickActions(){
     const [activeMenu,setActiveMenu] = useState(false)
@@ -12,12 +12,12 @@ export default function QuickActions(){
             <span >Add new </span>
           </button>
           {activeMenu && (
-          <div className="absolute  z-50 min-w-full  rounded-b-lg bg-gray-600 shadow-lg ring-1 ring-black ring-opacity-5">
-            <div className="p-2 ">
-                <Link to={'/addUser'} className="rounded-sm hover:bg-gray-700 flex gap-2 items-center text-sm p-2 text-gray-50"><User size={14}/> User</Link>
-                <Link to='/addFiliere' className="hover:bg-gray-700 rounded-sm flex gap-2 text-sm items-center p-2 text-gray-50"><School size={14}/>Filiere</Link>
-                <Link to='/addGroup' className="hover:bg-gray-700 rounded-sm flex gap-2 text-sm items-center p-2 text-gray-50"><School size={14}/>Group</Link>
-                <Link to='/addStudent' className="hover:bg-gray-700 rounded-sm flex gap-2 text-sm items-center p-2 text-gray-50"><User size={14}/>Student</Link>
+          <div className="absolute  z-50 min-w-full  rounded-b-lg dark:bg-gray-100 bg-gray-600 shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="p-2 dark:text-gray-700 text-gray-50">
+                <Link to='/addUser' className="dark:hover:bg-gray-200 hover:bg-gray-700 rounded-sm flex gap-2 items-center text-sm p-2 "><User size={16}/> User</Link>
+                <Link to='/addFiliere' className="dark:hover:bg-gray-200 hover:bg-gray-700 rounded-sm flex gap-2 text-sm items-center p-2 "><School size={16}/>Filiere</Link>
+                <Link to='/addGroup' className="dark:hover:bg-gray-200 hover:bg-gray-700 rounded-sm flex gap-2 text-sm items-center p-2 "><School size={16}/>Group</Link>
+                <Link to='/addStudent' className="dark:hover:bg-gray-200 hover:bg-gray-700 rounded-sm flex gap-2 text-sm items-center p-2 "><GraduationCap size={16}/>Student</Link>
                
             </div>
           </div>

@@ -41,8 +41,8 @@ const BarChart = ({ data }) => {
                     <div key={index} className=" flex flex-col space-y-2  justify-end items-center text-center h-full w-full cursor-pointer" >
                                 <div className="uppercase  font-medium dark:text-gray-50 text-gray-700">{item.value}</div>
                                 <div className="bg-violet-200 rounded-md hover:bg-violet-300 dark:hover:bg-violet-500 dark:bg-violet-400 duration-150 w-full " style={{ height: `${item.value}%`}}  onClick={() => handleButtonClick(index)}></div>
-                                <div class="h-12 flex justify-center items-center">
-                                  <span class="text-center uppercase text-xs dark:text-gray-50 text-gray-700">{item.label}</span>
+                                <div className="h-12 flex justify-center items-center">
+                                  <span className="text-center uppercase text-xs dark:text-gray-50 text-gray-700">{item.label}</span>
                                 </div>  
                     </div>
                   

@@ -4,11 +4,13 @@
 import StartCards from './StartCards';
 
 // import HalfCircleChart from '../LittleComponents/HalfDonutChart';
-import GroupTodayAbcense from './YesterdayAbsence';
+import YesterdayAbsence from './YesterdayAbsence';
 import BarChart from '../Charts/BarChart';
 
 import QuickActions from './QiuckActions';
 import MostAbsence from './MostAbsence';
+
+
 const data = [
     {
       label:'Developement Digital',
@@ -89,11 +91,12 @@ const data = [
     
 ]
 const Dashboard = () => {
+ 
   return (
   
          <div className='select-none max-w-[200rem] mx-auto'>
           {/* Header */}
-         
+          
             <QuickActions />
 
           {/* Stats Cards */}
@@ -112,10 +115,9 @@ const Dashboard = () => {
 
 
          
-            <div className="bg-white dark:bg-gray-800 rounded-lg border shadow p-3  my-5 dark:border-none">
-              <h3 className="text-base font-semibold mb-4 text-gray-700 dark:text-gray-50">Yesterday Absence </h3>
-              <GroupTodayAbcense />
-            </div>
+           
+              <YesterdayAbsence/>
+            
             
             <MostAbsence />
       </div>
