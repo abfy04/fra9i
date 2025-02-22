@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/abfy04/fra9i/static/css/main.2408116c.css",
+    "main.js": "/abfy04/fra9i/static/js/main.09929e2e.js",
+    "index.html": "/abfy04/fra9i/index.html",
+    "main.2408116c.css.map": "/abfy04/fra9i/static/css/main.2408116c.css.map",
+    "main.09929e2e.js.map": "/abfy04/fra9i/static/js/main.09929e2e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2408116c.css",
+    "static/js/main.09929e2e.js"
+  ]
+}
