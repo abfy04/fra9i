@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 function App() {
    const players= [
       'Ayoub','Rachid','Mustapha','Mohammed','Nordine','Farawla','Nordine Ewaj','Mohammed Ezzine'
-      ,'Mohssin','Oussama','Youssef','Abde lmoghit','omar','bilal'
+      ,'Mohssin','Oussama','Youssef','Abde lmoghit','omar','bilal','Abd Jalil'
    ]
    const [selectedPlayers,setSelectedPlayers] = useState([])
    const [isLoading,setIsLoading] = useState(false);
